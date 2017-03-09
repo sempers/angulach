@@ -1,0 +1,18 @@
+<form name="startThreadForm" class="simple-form" ng-submit="startThread()">
+    <md-input-container>
+        <label for="nThread-heading">Заголовок:</label>
+        <input type="text" required id="nThread-heading" name="heading" ng-model="nThread.heading">
+    </md-input-container>
+
+    <md-input-container>
+        <label for="nThread-link">Ссылка:</label>
+        <input type="text" id="nThread-link" name="link" ng-model="nThread.link">
+    </md-input-container>
+
+    <md-input-container>
+        <label for="nThread-body">Содержание:</label>
+        <textarea required id="nThread-body" name="body" ng-model="nThread.body" rows="5"></textarea>
+    </md-input-container>
+
+    <md-button type="submit" class="md-raised md-primary">Создать</md-button>
+</form>
