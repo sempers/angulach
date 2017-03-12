@@ -1,0 +1,43 @@
+<thread-item thread="c.thread"></thread-item>
+
+<comment-item comment="comment" ng-repeat="comment in c.comments | orderBy:'num'"></comment-item>
+
+<div class="b-post-statistics">
+    Читают: <strong id="post_stats_reading">{{c.stats.reading}}</strong> |
+    Отвечают: <strong id="post_stats_writing">{{c.stats.writing}}</strong>
+    <span class="b-post-statistics_m-right">
+        Всего: <span id="post_stats_total">{{c.stats.total}} просмотров</span>
+    </span>
+</div>
+
+<form name="addCommentForm" ng-submit="addComment()" class="b-comment-form">
+    <strong>Комментировать:</strong>
+    <span class="b-comment-form_b-helplink">
+        <a href="/help/markup/" target="_blank">Правила разметки</a>
+    </span>
+    <div>
+        <div>
+            <div class="b-comment-form_b-captcha">
+                <input type="hidden" name="captcha_key" value="comment">
+                <input type="text" name="captcha" value="">
+                <img src="https://1chan.ca/captcha/?key=comment&amp;PHPSESSID=adnj2grc7pjrjhqpu0430hnce6">
+            </div>
+            <textarea id="comment_form_text" ng-model="nComment.body" name="text" rows="5"></textarea>
+            <div class="b-comment-form_b-recaptcha">
+                <iframe src="https://1chan.ca/weedcaptcha/index.php" width="350" height="130" frameborder="0"
+                        scrolling="no">
+                </iframe>
+            </div>
+            <br>
+            <input type="submit" value="Отправить">
+            <board-select ctx="nComment"></board-select>
+            <em id="comment_form_error"></em>
+            <span class="b-comment-form_b-uplink">
+                <a href="#top">Вверх ↑</a>
+            </span>
+        </div>
+    </div>
+</form>
+
+
+

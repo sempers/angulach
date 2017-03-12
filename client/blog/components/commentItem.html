@@ -1,0 +1,19 @@
+<div class="b-comment"  id="comment_{{comment.num}}">
+    <div class="b-comment_b-info">
+        {{comment.date | date:'dd MMMM yyyy @ HH:mm:ss'}},
+        <a ng-href="#{{comment.num}}">№</a>
+        <a href="" ng-click="pasteNum(comment.num)" class="js-paste-link" name="{{comment.num}}">{{comment.num}}</a>
+        <a href="#" class="js-remove-button g-hidden">
+            <img src="https://1chan.ca/ico/remove.gif" width="16" height="16" alt="{{comment.num}}">
+        </a>
+        <a href="#" class="js-setusercaptcha-button g-hidden">
+            <img src="https://1chan.ca/ico/recaptcha.ico" width="16" height="16" alt="{{comment.num}}">
+        </a>
+        <span ng-if="comment.board">
+            <board-icon board="{{comment.board}}"></board-icon>
+        </span>
+    </div>
+    <div class="b-comment_b-body g-clearfix">
+        {{comment.body}}
+    </div>
+</div>

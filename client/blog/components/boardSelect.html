@@ -1,0 +1,9 @@
+<span class="b-homeboard-form">
+<img ng-src="{{boardImg(ctx.board)}}" class="b-homeboard-form_icon js-homeboard-icon" />
+    <a href="" class="b-homeboard-form_link js-homeboard-link g-dynamic" ng-click="showMenu()">Сменить</a>
+<div class="b-homeboard-form_select js-homeboard-select" ng-show="menuShown">
+    <a href="" title="{{item.title}}" class="js-homeboard-select-link" ng-repeat="item in items">
+        <img ng-src="{{boardImg(item.name)}}" class="b-homeboard-form_icon" ng-click="setValue(item)">
+    </a>
+</div>
+</span>

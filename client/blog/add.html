@@ -1,0 +1,88 @@
+<div class="b-blog-form">
+    <h1>Добавить пост:</h1>
+    <div class="b-blog-form_b-error" id="blog_form_error"></div>
+    <div id="placeholder_preview"></div>
+    <textarea id="template_preview" style="display:none">
+    </textarea>
+
+    <form method="post" id="blog_form" ng-submit="startThread()">
+        <div class="b-blog-form_b-form">
+            <div class="b-blog-form_b-form_b-field" id="blog_form_category">
+                <h2>Категория:</h2>
+                <p>Для отправки поста в категорию, необходимо выбрать её из выпадающего списка,<br>или ввести приватный
+                    ключ категории.</p>
+                <input type="text" name="category" value="" class="ui-autocomplete-input" autocomplete="off"
+                       role="textbox" aria-autocomplete="list" aria-haspopup="true"
+                       style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+                <div>
+                    <small>Если ты собрался запостить <strong>хуйню</strong>, то оставь это поле пустым.</small>
+                </div>
+            </div>
+            <div class="b-blog-form_b-form_b-field">
+                <h2>Заголовок:</h2>
+                <p>Размер заголовка не должен превышать 140 символов (сейчас введено — {{nThread.heading.length}} символов.</p>
+                <input type="text" name="title" ng-model="nThread.heading" value="">
+            </div>
+            <div class="b-blog-form_b-form_b-field">
+                <h2>Ссылка:</h2>
+                <p>Ссылка на внешний материал. Оставьте поле пустым, если материал самодостаточен.</p>
+                <input type="text" name="link" ng-model="nThread.link" value="">
+            </div>
+            <div class="b-blog-form_b-form_b-field">
+                <h2>Содержание:</h2>
+                <p>Можно использовать <a href="/help/markup/" target="_blank">язык разметки</a>.</p>
+                <p>Для картинок добавлена поддержка сервиса <a href="https://imgur.com/" target="_blank">Imgur</a>. Код
+                    вставки <abbr title="https://i.imgur.com/TCyVLLC.jpg --> [:TCyVLLC:]">прежний.</abbr></p>
+                <p></p>
+                <textarea name="text" ng-model="nThread.body" rows="6"></textarea>
+            </div>
+            <div class="b-blog-form_b-form_b-field">
+                <h2>Обратный тест Тьюринга:</h2>
+                <input type="hidden" name="captcha_key" value="post">
+                <p>Введите символы, изображенные на картинке.</p>
+                <p>
+                    <img src="https://1chan.ca/captcha/?key=post&amp;PHPSESSID=adnj2grc7pjrjhqpu0430hnce6">
+                    <input type="text" name="captcha" value="">
+                </p>
+                <div class="b-comment-form_b-recaptcha">
+                    <iframe src="https://1chan.ca/weedcaptcha/index.php" width="350" height="130" frameborder="0" scrolling="no"></iframe>
+                </div>
+                <br>
+                <p>
+                    Будьте добры, соблюдайте <a href="/help/news/" target="_blank">простые правила</a>
+                    при написании сообщений.
+                </p>
+            </div>
+            <div class="b-blog-form_b-form_b-field" id="blog_form_moderation" ng-if="currentUser && currentUser.isAdmin">
+                <h2>Модерирование:</h2>
+                <p>После публикации выполнить следующие действия:</p>
+                <label><input type="checkbox" name="approved" ng-model="nThread.approved">Одобрить</label>
+                <label><input type="checkbox" name="pinned" ng-model="nThread.pinned"> Закрепить</label>
+                <label><input type="checkbox" name="notrateable" ng-model="nThread.nonrateable"> Запретить оценивать</label>
+                <label><input type="checkbox" name="closed" ng-model="nThread.closed"> Запретить комментировать</label>
+            </div>
+            <div class="b-blog-form_b-form_b-field">
+                <h2>Принадлежность:</h2>
+                <p> Вы, как автор, можете указать <em>свою принадлежность к аудитории определенной имиджборды</em>.
+                    Иконка выбранной имиджборды будет отображаться рядом с вашим постом.</p>
+                <board-select ctx="nThread"></board-select>
+            </div>
+        </div>
+        <div class="b-blog-form_b-actions">
+            <input type="submit" value="Отправить">
+            <input type="button" value="Предпросмотр" id="blog_form_preview_button">
+        </div>
+        <!--<div class="b-blog-form_b-form" id="blog_form_last_posts" style="display:none">
+            <div class="b-blog-form_b-form_b-field">
+                <h2>Новые сообщения:</h2>
+                <p>С момента начала написания нового поста, были добавлены нижеперечисленные записи. Пожалуйста,
+                    избегайте повторяющихся тем сообщений.</p>
+                <div id="placeholder_last_posts"></div>
+                    <textarea id="template_last_posts" style="display:none">							        &lt;div class="b-live-entry"&gt;
+                            &lt;a href="https://1chan.ca/news/res/&lt;%=id%&gt;/" class="b-live-entry_b-description"&gt;&lt;%=title%&gt;&lt;/a&gt; &lt;% if (category) { %&gt; ← &lt;a href="https://1chan.ca/news/cat/&lt;%=category%&gt;/" class="b-live-entry_b-board"&gt;&lt;%=category_title%&gt;&lt;/a&gt;&lt;% } %&gt;
+                        &lt;/div&gt;
+                    </textarea>
+            </div>
+        </div>-->
+    </form>
+</div>

@@ -1,9 +1,20 @@
 Meteor.startup(function () {
+    //clean database
     Post.remove({num: NaN});
     Post.update({commentsCount: {$exists: false}}, {$set: {commentsCount: 0}});
     Post.update({rating: {$exists: false}}, {$set: {rating: 0}});
-    Post.update({favoritedBy: {$exists: false}}, {$push: {favoritedBy: "0.0.0.0"}});
-    Post.update({hiddenBy: {$exists: false}}, {$push: {hiddenBy: "0.0.0.0"}});
+
+    if(Meteor.users.find().count() === 0) {
+        Accounts.createUser({
+            username: 'admin',
+            email: 'groddenator@gmail.com',
+            password: 'huibhean1',
+            profile: {
+                name: 'Admin'
+            }
+        });
+    }
+
 });
 
 Meteor.onConnection(function (connection) {
@@ -14,10 +25,5 @@ Meteor.onConnection(function (connection) {
             favorites: [],
             hidden: []
         });
-    };
-    /*Meteor.publish("myInfo", function() {
-        return UserInfo.find({
-            ip: ip
-        });
-    });*/
+    }
 });

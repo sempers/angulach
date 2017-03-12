@@ -6,28 +6,19 @@
     border-radius: 0;
 }
 
-md-input-container {
-    padding: 0 !important;
-    margin: 0;
-}
-
 .simple-form {
     padding: 10px 15px 10px 15px;
     margin-bottom: 30px;
 }
 
-md-content {
-    border: 1px solid #eee;
-}
-
 .md-errors-spacer {
     min-height: 1px;
-}
-md-button {
-    margin-top: 10px;
-    border-radius: 5px;
 }
 
 .comment-form {
     background-color: white;
+}
+
+.ib {
+    display: inline-block;
 }
